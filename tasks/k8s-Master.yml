@@ -1,0 +1,42 @@
+- name: "required images pulling for cluster"
+  command: kubeadm config images pull
+
+- name: "Initializing the Kubernetes cluser on Master Node"
+  command: "kubeadm init --pod-network-cidr={{ pod_cidr_network }} --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem"
+  ignore_errors: True
+
+- name: "create .kube folder/directory"
+  file:
+          path: $HOME/.kube
+          state: directory
+
+- name: "coping admin.conf file to .kube/config folder"
+  copy:
+          remote_src: yes
+          src: /etc/kubernetes/admin.conf
+          dest: $HOME/.kube/config
+
+- name: "changing the owner of .kube/config"
+  shell: "chown $(id -u):$(id -g) $HOME/.kube/config"
+
+- name: "Installing flannel CNI plugin"
+  command: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+  changed_when: False
+
+
+- name: "Generating token for joining nodes"
+  command: kubeadm token create --print-join-command
+  register: token
+
+- name: "printing token"
+  debug:
+      var: token
+
+- name: "Copy token to local file"
+  local_action: "copy content='{{ token.stdout }}' dest=/tmp/token"
+
+  #- name: "copying the kube config file to local"
+  #  fetch:
+  #      src: "/root/.kube/config"
+  #       dest: "/etc/ansible/roles/k8s-multinodecluster/tasks/"
+  #       flat: yes  

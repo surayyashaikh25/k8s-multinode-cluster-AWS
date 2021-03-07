@@ -1,0 +1,8 @@
+- name: "Copying token to worker nodes"
+  copy: 
+      src: /tmp/token
+      dest: /tmp/token
+
+- name: "Joining the workers"
+  shell: "bash /tmp/token"
+  changed_when: False
