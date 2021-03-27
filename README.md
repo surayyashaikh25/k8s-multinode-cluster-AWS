@@ -9,11 +9,13 @@ Requirements
 ------------
 
 In the case, If you already have AWS EC2 instances created (master and worker instances but not configured) then you need to manually create the inventory 
-" ```
+  " ```
+  <--
   [master]
   IP of master
   [worker]
   IPs of workers
+  -->
   ``` " 
   _Meaning:_ we have 2 hostgroups one for Master and another for Worker nodes
   * But if you want to provision the ec2 instances automatically for K8s cluster using playbook then you can use the playbook that I have created [EC2 playbook](https://github.com/surayyashaikh25/kube-cluster-ansible/blob/master/ec2.yml "ec2.yml") 
@@ -31,6 +33,7 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 " ```
+<--
   - hosts: master
   gather_facts: no
   tasks:
@@ -45,7 +48,7 @@ Including an example of how to use your role (for instance, with variables passe
           - name: Call the role
             include_role:
                   name: surayyashaikh25.k8s-multinode-cluster-AWS
-
+-->
   ``` "
 
 License
