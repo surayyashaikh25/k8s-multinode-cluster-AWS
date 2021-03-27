@@ -1,31 +1,52 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Kubernetes Multi Node Cluster On AWS.
+This Role is to create Kubernetes Multi Node Cluster On AWS with 1 Master node & many worker nodes by default we have 2 nodes  but we can scale it. 
+
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
-
+In the case, If you already have AWS EC2 instances created (master and worker instances but not configured) then you need to manually create the inventory 
+" ```
+  [master]
+  IP of master
+  [worker]
+  IPs of workers
+  ``` " 
+  _Meaning:_ we have 2 hostgroups one for Master and another for Worker nodes
+  * But if you want to provision the ec2 instances automatically for K8s cluster using playbook then you can use the playbook that I have created [EC2 playbook](https://github.com/surayyashaikh25/kube-cluster-ansible/blob/master/ec2.yml "ec2.yml") 
+  * You will need to specify your AWS Access Key & AWS Secret Key and also your public key in playbook. for access key and secret key you can make ansible vault file
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
-
+This role doesn't require any variable to be specified by the user.
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
-
+This will work as it is without any dependency on other Galaxy roles. Because this role is stand alone.
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+" ```
+  - hosts: master
+  gather_facts: no
+  tasks:
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+          - name: Call the role
+            include_role:
+                    name: surayyashaikh25.k8s-multinode-cluster-AWS
+
+- hosts: worker
+  gather_facts: no
+  tasks:
+          - name: Call the role
+            include_role:
+                  name: surayyashaikh25.k8s-multinode-cluster-AWS
+
+  ``` "
 
 License
 -------
@@ -35,5 +56,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
-# k8s-multinode-cluster-AWS
+This Role is created by Surayya Shaikh. For any queries, suggestions, corrections please contact here:[LinkedIn](linkedin.com/in/surayya-shaikh)
+## k8s-multinode-cluster-AWS
