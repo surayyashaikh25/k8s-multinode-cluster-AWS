@@ -19,14 +19,17 @@ In the case, If you already have AWS EC2 instances created (master and worker in
   _Meaning:_  we have 2 hostgroups one for Master and another for Worker nodes
   * But if you want to provision the ec2 instances automatically for K8s cluster using playbook then you can use the playbook that I have created [EC2 playbook](https://github.com/surayyashaikh25/kube-cluster-ansible/blob/master/ec2.yml "ec2.yml") 
   * You will need to specify your AWS Access Key & AWS Secret Key and also your public key in playbook. for access key and secret key you can make ansible vault file
+
 Role Variables
 --------------
 
 This role doesn't require any variable to be specified by the user.
+
 Dependencies
 ------------
 
 This will work as it is without any dependency on other Galaxy roles. Because this role is stand alone.
+
 Example Playbook
 ----------------
 
@@ -59,5 +62,6 @@ BSD
 Author Information
 ------------------
 
-This Role is created by Surayya Shaikh. For any queries, suggestions, corrections please contact here:[LinkedIn](linkedin.com/in/surayya-shaikh)
+This Role is created by Surayya Shaikh. For any queries, suggestions, corrections please contact here: 
+[LinkedIn](https://linkedin.com/in/surayya-shaikh)
 ## k8s-multinode-cluster-AWS
